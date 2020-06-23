@@ -1,0 +1,9 @@
+#pay {
+  font-family: sans-serif;
+  font-style: italic;
+  color: white;
+}
+
+.jumbotron-override {
+  margin-bottom: 0px;
+}
