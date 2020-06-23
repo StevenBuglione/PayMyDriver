@@ -1,0 +1,11 @@
+.add {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  font-size: 50px;
+  color: #03c2fc;
+}
+
+.addSize {
+  font-size: 40px;
+}

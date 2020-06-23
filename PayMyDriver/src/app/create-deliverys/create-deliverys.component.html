@@ -1,1 +1,13 @@
-<p>create-deliverys works!</p>
+<accordion [isAnimated]="true">
+  <accordion-group heading="Driver's Details">
+    <div class="flex-column">
+      <p><strong>Name:</strong> {{ driver.name }}</p>
+      <p><strong>Wage: </strong>{{ driver.pay }}</p>
+    </div>
+  </accordion-group>
+</accordion>
+<div class="add">
+  <a class="btn addSize">
+    <fa-icon [icon]="faPlus" size="lg"></fa-icon>
+  </a>
+</div>

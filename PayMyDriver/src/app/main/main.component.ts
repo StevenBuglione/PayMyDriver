@@ -11,6 +11,10 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {}
 
   hasDriver() {
-    return false;
+    if (localStorage.getItem('driver') != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

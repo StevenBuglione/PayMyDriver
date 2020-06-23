@@ -4,11 +4,9 @@ import {
   faUsers,
   faDollarSign,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Icon } from '@fortawesome/fontawesome-svg-core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-driver',
@@ -24,7 +22,7 @@ export class CreateDriverComponent implements OnInit {
   formattedAmount: string = '0';
   value: any;
 
-  constructor(private fb: FormBuilder, private currencyPipe: CurrencyPipe) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createDriverForm();
@@ -40,7 +38,7 @@ export class CreateDriverComponent implements OnInit {
   register() {
     if (this.driverForm.valid) {
       this.driver = Object.assign({}, this.driverForm.value);
-      localStorage.setItem('drive', JSON.stringify(this.driver));
+      localStorage.setItem('driver', JSON.stringify(this.driver));
     }
   }
 
