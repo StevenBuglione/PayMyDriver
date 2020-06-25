@@ -5,9 +5,121 @@
       <p><strong>Wage: </strong>{{ driver.pay }}</p>
     </div>
   </accordion-group>
+  <accordion-group
+    *ngFor="let ticket of tickets"
+    [heading]="'Delivery: ' + ticket.id + 1"
+  >
+    <p>
+      <strong>Address: {{ ticket.address }} </strong>
+    </p>
+    <p><strong>Payment Type: </strong>{{ ticket.paymentType }}</p>
+    <p><strong>Total: </strong>{{ ticket.total }}</p>
+    <p><strong>Tip: </strong>{{ ticket.tip }}</p>
+  </accordion-group>
 </accordion>
 <div class="add">
-  <a class="btn addSize">
+  <a class="btn addSize" (click)="openModal(template)">
     <fa-icon [icon]="faPlus" size="lg"></fa-icon>
   </a>
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Ticket</h4>
+    <button
+      type="button"
+      class="btn btn-info"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="ticketForm" (ngSubmit)="createTicket()">
+      <hr />
+      <div class="form-group ml-4">
+        <label class="control-label mr-2">Payment Type: </label>
+        <label class="radio-inline">
+          <input
+            class="mr-3"
+            type="radio"
+            value="Cash"
+            formControlName="paymentType"
+            (click)="noTip()"
+          />Cash
+        </label>
+        <label class="radio-inline ml-3">
+          <input
+            class="mr-3"
+            type="radio"
+            value="Credit"
+            formControlName="paymentType"
+            (click)="getTip()"
+          />Credit
+        </label>
+      </div>
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center">
+          <div class="form-group">
+            <div class="d-inline-flex">
+              <fa-icon [icon]="faMap" class="mr-3 align-self-center"></fa-icon>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="address"
+                placeholder="Address(Optional)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="form-group align-items-center">
+            <div class="d-inline-flex">
+              <fa-icon
+                [icon]="faMoney"
+                class="mr-2 align-self-center"
+              ></fa-icon>
+              <input
+                class="form-control"
+                required
+                pattern="[0-9/.]+"
+                placeholder="Total"
+                formControlName="total"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="hasTip">
+          <div class="form-group align-items-center">
+            <div class="d-inline-flex">
+              <fa-icon
+                [icon]="faWallet"
+                class="mr-3 align-self-center"
+              ></fa-icon>
+              <input
+                class="form-control"
+                pattern="[0-9/.]+"
+                placeholder="Tip"
+                formControlName="tip"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group text-center">
+          <button
+            class="btn btn-success"
+            [disabled]="!ticketForm.valid"
+            type="submit"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer"></div>
+</ng-template>

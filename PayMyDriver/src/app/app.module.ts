@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { CreateDriverComponent } from './create-driver/create-driver.component';
 import { CreateDeliverysComponent } from './create-deliverys/create-deliverys.component';
 import { DeliveryComponent } from './delivery/delivery.component';
+import { TicketModalComponent } from './ticket-modal/ticket-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DeliveryComponent } from './delivery/delivery.component';
     CreateDriverComponent,
     CreateDeliverysComponent,
     DeliveryComponent,
+    TicketModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { DeliveryComponent } from './delivery/delivery.component';
     FontAwesomeModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ModalModule.forRoot(),
     CarouselModule.forRoot(),
     AccordionModule.forRoot(),
   ],

@@ -1,3 +1,4 @@
+import { DriverService } from './../_services/driver.service';
 import { Driver } from './../models/driver';
 import {
   faCoffee,
@@ -22,7 +23,7 @@ export class CreateDriverComponent implements OnInit {
   formattedAmount: string = '0';
   value: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private driverService: DriverService) {}
 
   ngOnInit() {
     this.createDriverForm();
@@ -38,6 +39,7 @@ export class CreateDriverComponent implements OnInit {
   register() {
     if (this.driverForm.valid) {
       this.driver = Object.assign({}, this.driverForm.value);
+      this.driver.tickets = [];
       localStorage.setItem('driver', JSON.stringify(this.driver));
     }
   }

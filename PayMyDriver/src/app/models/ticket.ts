@@ -1,6 +1,7 @@
 export interface Ticket {
-  isCash: boolean;
-  isCredit: boolean;
+  id: number;
+  address: string;
+  paymentType: string;
   total: number;
   tip: number;
 }
