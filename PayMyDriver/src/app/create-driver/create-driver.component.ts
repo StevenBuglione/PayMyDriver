@@ -3,6 +3,7 @@ import {
   faCoffee,
   faUsers,
   faDollarSign,
+  faClock,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
@@ -21,6 +22,7 @@ export class CreateDriverComponent implements OnInit {
   faMoney = faDollarSign;
   formattedAmount: string = '0';
   value: any;
+  faClock = faClock;
 
   constructor(private fb: FormBuilder) {}
 
@@ -32,6 +34,7 @@ export class CreateDriverComponent implements OnInit {
     this.driverForm = this.fb.group({
       name: ['', Validators.required],
       pay: ['', Validators.required],
+      hours: [''],
     });
   }
 

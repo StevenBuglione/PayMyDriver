@@ -106,6 +106,9 @@ export class CreateDeliverysComponent implements OnInit {
       if (this.ticket.paymentType == 'Credit') {
         this.ticket.total = 0;
       }
+      if (this.ticket.paymentType == 'Cash') {
+        this.ticket.tip = 0;
+      }
       this.ticket.id = this.numberOfTickets();
       this.driver.tickets.push(this.ticket);
       localStorage.setItem('driver', JSON.stringify(this.driver));

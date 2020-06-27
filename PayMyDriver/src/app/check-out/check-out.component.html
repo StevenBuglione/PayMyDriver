@@ -1,5 +1,22 @@
-<div class="main">
-  <div class="content">
-    <p>checkout container works</p>
+<div class="container main">
+  <div class="card">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let ticket of tickets">
+        <p><strong>Address: </strong> {{ ticket.address }}</p>
+        <p><strong>Payment Type: </strong>{{ ticket.paymentType }}</p>
+        <p *ngIf="hasTotal(ticket)">
+          <strong>Total: </strong>{{ ticket.total | currency }}
+        </p>
+        <p *ngIf="getDriverTip(ticket)">
+          <strong>Tip: </strong>{{ ticket.tip | currency }}
+        </p>
+      </li>
+    </ul>
+
+    <div class="container">
+      <p><strong>Total Credit Tip: </strong> {{ creditTip | currency }}</p>
+      <p><strong>Total Wage: </strong>{{ driverPay | currency }}</p>
+      <p><strong>Total Cash: </strong>{{ driverHasCash | currency }}</p>
+    </div>
   </div>
 </div>
