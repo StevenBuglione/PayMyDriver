@@ -4,15 +4,15 @@ import {
   faMapMarkerAlt,
   faMoneyBillWaveAlt,
   faWallet,
+  faEdit,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { DriverService } from './../_services/driver.service';
 import { Driver } from './../models/driver';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { TicketModalComponent } from '../ticket-modal/ticket-modal.component';
-import { stringify } from 'querystring';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ticket } from '../models/ticket';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-create-deliverys',
@@ -26,16 +26,23 @@ export class CreateDeliverysComponent implements OnInit {
   hasNewTicket: boolean;
   tickets = [];
   count: number;
+  faEdit = faEdit;
+  ticketId = -1;
   ///////////////////
-  title: string;
-  closeBtnName: string;
-  list: any[] = [];
+  //Create Ticket Form Variables
   ticketForm: FormGroup;
   ticket: Ticket;
   faMap = faMapMarkerAlt;
   faMoney = faMoneyBillWaveAlt;
   faWallet = faWallet;
   hasTip: boolean = false;
+  //////////////////////////////////
+  //Edit Ticket Form Variable
+  editForm: FormGroup;
+  ticketToEdit: Ticket;
+  editTicketId: number;
+  //Delete Ticket
+  faTrash = faTrash;
 
   constructor(private modalService: BsModalService, private fb: FormBuilder) {}
 
@@ -60,6 +67,21 @@ export class CreateDeliverysComponent implements OnInit {
     return ticketList;
   }
 
+  //to get the id of a ticket
+  numberOfTickets() {
+    const ticketList = [];
+    for (const ticket of this.driver.tickets) {
+      ticketList.push({
+        id: ticket.id,
+        address: ticket.address,
+        paymentType: ticket.paymentType,
+        total: ticket.total,
+        tip: ticket.tip,
+      });
+    }
+    return ticketList.length;
+  }
+
   //Opens the Ticket Creation form
   openTicketForm(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
@@ -79,6 +101,10 @@ export class CreateDeliverysComponent implements OnInit {
   createTicket() {
     if (this.ticketForm.valid) {
       this.ticket = Object.assign({}, this.ticketForm.value);
+      if (this.ticket.paymentType == 'Credit') {
+        this.ticket.total = 0;
+      }
+      this.ticket.id = this.numberOfTickets();
       this.driver.tickets.push(this.ticket);
       localStorage.setItem('driver', JSON.stringify(this.driver));
     }
@@ -111,5 +137,61 @@ export class CreateDeliverysComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  ////////////////////////////////////
+  //This will contain the logic for editing a created ticket
+
+  //Opens the Ticket Edit form
+  editTicketForm(template: TemplateRef<any>, ticket: Ticket) {
+    this.ticketToEdit = ticket;
+    this.editTicketId = ticket.id;
+    this.setEditTicketForm(ticket);
+    this.modalRef = this.modalService.show(template);
+  }
+
+  //Set Edit Ticket Form
+  setEditTicketForm(ticket: Ticket) {
+    this.editForm = this.fb.group({
+      paymentType: [ticket.paymentType, Validators.required],
+      address: [ticket.address],
+      total: [ticket.total],
+      tip: [ticket.tip],
+    });
+    if (ticket.total == 0) {
+      this.hasTip = true;
+    }
+  }
+
+  //This function will update the current ticket
+  updateTicket() {
+    this.ticketToEdit = Object.assign({}, this.editForm.value);
+    if (this.ticketToEdit.paymentType == 'Credit') {
+      this.ticketToEdit.total = 0;
+    }
+    this.ticketToEdit.id = this.editTicketId;
+    var n = this.editTicketId;
+    console.log(n);
+    this.tickets = this.getTickets();
+    this.tickets[n] = this.ticketToEdit;
+    this.driver.tickets = this.tickets;
+    console.log(this.driver);
+
+    localStorage.setItem('driver', JSON.stringify(this.driver));
+  }
+
+  //This function will delete the current ticket
+  //Opens the Ticket Creation form
+  deleteTicket(template: TemplateRef<any>, ticket: Ticket) {
+    this.modalRef = this.modalService.show(template);
+    this.editTicketId = this.ticketId;
+  }
+
+  removeTicket() {
+    var n = this.editTicketId;
+    this.tickets = this.getTickets();
+    this.tickets.splice(n);
+    this.driver.tickets = this.tickets;
+    localStorage.setItem('driver', JSON.stringify(this.driver));
   }
 }
