@@ -94,4 +94,22 @@ export class CreateDeliverysComponent implements OnInit {
   creditTransaction() {
     this.hasTip = true;
   }
+
+  //Function used to check if a ticket has a total
+  hasTotal(ticket: Ticket) {
+    if (ticket.total > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //Function used to check if a ticket has a tip
+  getDriverTip(ticket: Ticket) {
+    if (ticket.tip > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

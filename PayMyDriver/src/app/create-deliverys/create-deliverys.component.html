@@ -10,8 +10,12 @@
     [heading]="'' + ticket.address"
   >
     <p><strong>Payment Type: </strong>{{ ticket.paymentType }}</p>
-    <p><strong>Total: </strong>{{ ticket.total }}</p>
-    <p><strong>Tip: </strong>{{ ticket.tip }}</p>
+    <p *ngIf="hasTotal(ticket)">
+      <strong>Total: </strong>{{ ticket.total | currency }}
+    </p>
+    <p *ngIf="getDriverTip(ticket)">
+      <strong>Tip: </strong>{{ ticket.tip | currency }}
+    </p>
   </accordion-group>
 </accordion>
 <div class="add">
@@ -111,6 +115,7 @@
             class="btn btn-success"
             [disabled]="!ticketForm.valid"
             type="submit"
+            (click)="modalRef.hide()"
           >
             Register
           </button>
