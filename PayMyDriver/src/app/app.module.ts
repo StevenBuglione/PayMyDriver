@@ -1,8 +1,6 @@
-import { DriverService } from './_services/driver.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -15,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { CreateDriverComponent } from './create-driver/create-driver.component';
 import { CreateDeliverysComponent } from './create-deliverys/create-deliverys.component';
 import { DeliveryComponent } from './delivery/delivery.component';
-import { TicketModalComponent } from './ticket-modal/ticket-modal.component';
+import { CheckOutComponent } from './check-out/check-out.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +23,7 @@ import { TicketModalComponent } from './ticket-modal/ticket-modal.component';
     CreateDriverComponent,
     CreateDeliverysComponent,
     DeliveryComponent,
-    TicketModalComponent,
+    CheckOutComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,10 +33,9 @@ import { TicketModalComponent } from './ticket-modal/ticket-modal.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ModalModule.forRoot(),
-    CarouselModule.forRoot(),
     AccordionModule.forRoot(),
   ],
-  providers: [DriverService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

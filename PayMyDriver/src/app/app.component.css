@@ -1,0 +1,14 @@
+undefined {
+  flex: 1;
+}
+
+body,
+html,
+router-outlet {
+  height: 100%;
+}
+
+router-outlet {
+  display: flex;
+  flex-flow: column;
+}

@@ -1,4 +1,3 @@
-import { DriverService } from './../_services/driver.service';
 import { Driver } from './../models/driver';
 import {
   faCoffee,
@@ -23,7 +22,7 @@ export class CreateDriverComponent implements OnInit {
   formattedAmount: string = '0';
   value: any;
 
-  constructor(private fb: FormBuilder, private driverService: DriverService) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createDriverForm();

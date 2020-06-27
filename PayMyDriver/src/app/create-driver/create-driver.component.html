@@ -1,61 +1,67 @@
-<div class="container">
-  <form [formGroup]="driverForm" (ngSubmit)="register()">
-    <div class="d-flex flex-column mr-4">
-      <div class="d-flex justify-content-center">
-        <div class="form-group">
-          <div class="d-inline-flex mt-5">
+<div class="one">
+  <div class="container">
+    <form [formGroup]="driverForm" (ngSubmit)="register()">
+      <div class="d-flex flex-column mr-4">
+        <div class="d-flex justify-content-center">
+          <div class="form-group">
+            <div class="d-inline-flex mt-5">
+              <fa-icon
+                [icon]="faUsers"
+                size="lg"
+                class="align-self-center mr-2"
+              ></fa-icon>
+              <input
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    driverForm.get('name').errors &&
+                    driverForm.get('name').touched
+                }"
+                class="form-control"
+                formControlName="name"
+                placeholder="Driver's Name"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="form-group d-inline-flex mt-2">
             <fa-icon
-              [icon]="faUsers"
+              [icon]="faMoney"
               size="lg"
-              class="align-self-center mr-2"
+              class="align-self-center"
             ></fa-icon>
             <input
-              type="text"
               [ngClass]="{
                 'is-invalid':
-                  driverForm.get('name').errors &&
-                  driverForm.get('name').touched
+                  driverForm.get('pay').errors && driverForm.get('pay').touched
               }"
-              class="form-control"
-              formControlName="name"
-              placeholder="Driver's Name"
+              class="form-control ml-4"
+              required
+              pattern="[0-9/.]+"
+              placeholder="Hourly Rate"
+              formControlName="pay"
             />
           </div>
         </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <div class="form-group d-inline-flex mt-2">
-          <fa-icon
-            [icon]="faMoney"
-            size="lg"
-            class="align-self-center"
-          ></fa-icon>
-          <input
-            [ngClass]="{
-              'is-invalid':
-                driverForm.get('pay').errors && driverForm.get('pay').touched
-            }"
-            class="form-control ml-4"
-            required
-            pattern="[0-9/.]+"
-            placeholder="Hourly Rate"
-            formControlName="pay"
-          />
+
+        <div class="form-group text-center mt-3">
+          <button
+            class="btn btn-success btn-md mr-2 ml-3"
+            [disabled]="!driverForm.valid"
+            type="submit"
+          >
+            Add Driver
+          </button>
+          <button
+            class="btn btn-danger btn-md"
+            type="button"
+            (click)="cancel()"
+          >
+            Cancel Ticket
+          </button>
         </div>
       </div>
-
-      <div class="form-group text-center mt-3">
-        <button
-          class="btn btn-success btn-md mr-2 ml-3"
-          [disabled]="!driverForm.valid"
-          type="submit"
-        >
-          Add Driver
-        </button>
-        <button class="btn btn-danger btn-md" type="button" (click)="cancel()">
-          Cancel Ticket
-        </button>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

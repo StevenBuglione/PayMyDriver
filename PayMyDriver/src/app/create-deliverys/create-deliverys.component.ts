@@ -6,6 +6,7 @@ import {
   faWallet,
   faEdit,
   faTrash,
+  faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import { Driver } from './../models/driver';
 import { Component, OnInit, TemplateRef } from '@angular/core';
@@ -23,6 +24,7 @@ export class CreateDeliverysComponent implements OnInit {
   driver: Driver;
   modalRef: BsModalRef;
   faPlus = faPlusCircle;
+  faCheckout = faShoppingCart;
   hasNewTicket: boolean;
   tickets = [];
   count: number;
@@ -187,6 +189,7 @@ export class CreateDeliverysComponent implements OnInit {
     this.editTicketId = this.ticketId;
   }
 
+  //This Function Removes A ticket From local storage
   removeTicket() {
     var n = this.editTicketId;
     this.tickets = this.getTickets();

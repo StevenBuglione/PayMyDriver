@@ -1,8 +1,10 @@
-<div class="container-fluid main">
-  <div *ngIf="!hasDriver()">
-    <app-create-driver></app-create-driver>
-  </div>
-  <div *ngIf="hasDriver()">
-    <app-create-deliverys></app-create-deliverys>
+<div class="main">
+  <div class="container-fluid">
+    <div *ngIf="!hasDriver()">
+      <app-create-driver></app-create-driver>
+    </div>
+    <div *ngIf="hasDriver()">
+      <app-create-deliverys></app-create-deliverys>
+    </div>
   </div>
 </div>
