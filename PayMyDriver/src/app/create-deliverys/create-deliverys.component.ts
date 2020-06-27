@@ -36,53 +36,13 @@ export class CreateDeliverysComponent implements OnInit {
   faMoney = faMoneyBillWaveAlt;
   faWallet = faWallet;
   hasTip: boolean = false;
-  newTicket: boolean;
 
-  constructor(
-    private modalService: BsModalService,
-    private fb: FormBuilder,
-    private driverService: DriverService
-  ) {}
+  constructor(private modalService: BsModalService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.driver = JSON.parse(localStorage.getItem('driver'));
     this.createTicketForm();
-
-    if (this.driverService.subsVar == undefined) {
-      this.driverService.subsVar = this.driverService.invokeFirstComponentFunction.subscribe(
-        () => {
-          this.addGroupItem();
-        }
-      );
-    }
     this.tickets = this.getTickets();
-  }
-
-  groups = [];
-
-  addGroupItem(): void {
-    this.addTickets();
-    this.groups.push({
-      title: `Delivery - ${this.groups.length + 1}`,
-      content: `Test - ${this.groups.length + 1}`,
-    });
-    this.ngOnInit();
-    console.log(this.tickets);
-  }
-
-  //To get the tickets found in the driver object
-  addTickets() {
-    const ticketList = [];
-    for (const ticket of this.driver.tickets) {
-      ticketList.push({
-        id: ticket.id,
-        address: ticket.address,
-        paymentType: ticket.paymentType,
-        total: ticket.total,
-        tip: ticket.tip,
-      });
-    }
-    this.tickets = ticketList;
   }
 
   //To get the tickets found in the driver object
@@ -100,11 +60,12 @@ export class CreateDeliverysComponent implements OnInit {
     return ticketList;
   }
 
-  openModal(template: TemplateRef<any>) {
+  //Opens the Ticket Creation form
+  openTicketForm(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 
-  /////////////////////
+  //Creates the Ticket Form for reative form
   createTicketForm() {
     this.ticketForm = this.fb.group({
       paymentType: ['', Validators.required],
@@ -114,27 +75,23 @@ export class CreateDeliverysComponent implements OnInit {
     });
   }
 
+  //This function is callled on the submition of the "Ticket Form"
   createTicket() {
-    this.driver = JSON.parse(localStorage.getItem('driver'));
-
     if (this.ticketForm.valid) {
       this.ticket = Object.assign({}, this.ticketForm.value);
-      this.ticket.id = this.getTicketId();
       this.driver.tickets.push(this.ticket);
       localStorage.setItem('driver', JSON.stringify(this.driver));
     }
     this.ngOnInit();
   }
 
-  getTicketId() {
-    return this.driver.tickets.length;
-  }
-
-  noTip() {
+  //Function to set a cash transation for "Ticket Form"
+  cashTransaction() {
     this.hasTip = false;
   }
 
-  getTip() {
+  //Function to set a credit transation for "Ticket Form"
+  creditTransaction() {
     this.hasTip = true;
   }
 }

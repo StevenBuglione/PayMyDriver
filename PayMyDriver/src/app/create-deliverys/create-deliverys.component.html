@@ -7,18 +7,15 @@
   </accordion-group>
   <accordion-group
     *ngFor="let ticket of tickets"
-    [heading]="'Delivery: ' + ticket.id + 1"
+    [heading]="'' + ticket.address"
   >
-    <p>
-      <strong>Address: {{ ticket.address }} </strong>
-    </p>
     <p><strong>Payment Type: </strong>{{ ticket.paymentType }}</p>
     <p><strong>Total: </strong>{{ ticket.total }}</p>
     <p><strong>Tip: </strong>{{ ticket.tip }}</p>
   </accordion-group>
 </accordion>
 <div class="add">
-  <a class="btn addSize" (click)="openModal(template)">
+  <a class="btn addSize" (click)="openTicketForm(template)">
     <fa-icon [icon]="faPlus" size="lg"></fa-icon>
   </a>
 </div>
@@ -46,7 +43,7 @@
             type="radio"
             value="Cash"
             formControlName="paymentType"
-            (click)="noTip()"
+            (click)="cashTransaction()"
           />Cash
         </label>
         <label class="radio-inline ml-3">
@@ -55,7 +52,7 @@
             type="radio"
             value="Credit"
             formControlName="paymentType"
-            (click)="getTip()"
+            (click)="creditTransaction()"
           />Credit
         </label>
       </div>
@@ -68,13 +65,14 @@
                 type="text"
                 class="form-control"
                 formControlName="address"
-                placeholder="Address(Optional)"
+                placeholder="Address"
+                required
               />
             </div>
           </div>
         </div>
 
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center" *ngIf="!hasTip">
           <div class="form-group align-items-center">
             <div class="d-inline-flex">
               <fa-icon
@@ -83,7 +81,6 @@
               ></fa-icon>
               <input
                 class="form-control"
-                required
                 pattern="[0-9/.]+"
                 placeholder="Total"
                 formControlName="total"
