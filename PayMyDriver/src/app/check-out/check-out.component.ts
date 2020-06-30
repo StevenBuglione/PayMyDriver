@@ -17,6 +17,8 @@ export class CheckOutComponent implements OnInit {
   driverHasCash: number = 0;
   hoursWorked: number;
   wage: number;
+  totalPay: number;
+  diffrence: number;
 
   constructor() {}
 
@@ -67,6 +69,18 @@ export class CheckOutComponent implements OnInit {
     for (let i = 0; i < this.tickets.length; i++) {
       this.creditTip += parseFloat(this.tickets[i].tip);
       this.driverHasCash += this.tickets[i].total;
+    }
+    this.totalPay = this.creditTip + this.driverPay;
+    this.diffrence = this.driverHasCash - this.totalPay;
+  }
+
+  //returns true or false depending who is owed money
+  whoGetsPaid() {
+    if (this.diffrence < 0) {
+      return true;
+    }
+    {
+      return false;
     }
   }
 }

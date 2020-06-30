@@ -16,7 +16,14 @@
     <div class="container">
       <p><strong>Total Credit Tip: </strong> {{ creditTip | currency }}</p>
       <p><strong>Total Wage: </strong>{{ driverPay | currency }}</p>
+      <p><strong>Driver is owed: </strong>{{ totalPay | currency }}</p>
       <p><strong>Total Cash: </strong>{{ driverHasCash | currency }}</p>
+      <p *ngIf="whoGetsPaid()">
+        <strong>Pay Driver: </strong>{{ diffrence * -1 | currency }}
+      </p>
+      <p *ngIf="!whoGetsPaid()">
+        <strong>Driver Pays: </strong>{{ diffrence | currency }}
+      </p>
     </div>
   </div>
 </div>
